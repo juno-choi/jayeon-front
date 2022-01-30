@@ -1,7 +1,7 @@
 const reqeustUrl = 'http://localhost:8080';
 
 $(document).ready(function (){
-    //getItems();
+    getItems();
     saleModalEvent();
     addGoodsListEvent();
 });
@@ -136,11 +136,10 @@ function getOptionList(){
     }
 
     const itemObj = items.filter((e)=>{
-        return e.idx === 1;
+        return e.idx == select.value;
     });
     const options = itemObj[0].options;
     options.forEach((item)=>{
-        console.log(item);
         const option = document.createElement('option');
         option.value = item.idx;
         option.setAttribute("data-price", item.price);
@@ -187,17 +186,48 @@ function kakaoPostSearch(){
 //주문 button
 function order(){
     const f = document.orderForm;
-    const row = document.querySelector('#goodsList').querySelectorAll('.row');
-
+    const rows = document.querySelector('#goodsList').querySelectorAll('.row');
+    const arr = [];
+    rows.forEach((row)=>{
+        const item = {
+            'item' : row.querySelector('select[name=goods]').value,
+            'option' : row.querySelector('select[name=option]').value,
+            'ea' : row.querySelector('input[name=ea]').value,
+            'price' : row.querySelector('input[name=price]').value
+        };
+        arr.push(item);
+    });
     const buyer = f.buyer.value;
+    const recipient = f.recipient.value;
+    const tel1 = f.tel1.value;
+    const tel2 = f.tel2.value;
+    const tel3 = f.tel3.value;
+    const post1 = f.post1.value;
+    const post2 = f.post2.value;
+    const post3 = f.post3.value;
+    const request = f.request.value;
 
     const data = {
-        'order' : [],
-        'buyer' : buyer
+
     };
-    const ajax = $.ajax({
-        method: 'POST',
-        url: reqeustUrl+'/v1/orders',
-        data: data
+
+    axios.post(reqeustUrl+'/v1/orders',{
+        'order' : JSON.stringify(arr),
+        'buyer' : buyer,
+        'recipient' : recipient,
+        'tel1' : tel1,
+        'tel2' : tel2,
+        'tel3' : tel3,
+        'post1' : post1,
+        'post2' : post2,
+        'post3' : post3,
+        'request' : request
+    })
+    .then(function(res){
+        console.log(res);
+    })
+    .catch(function(){
+        alert('실패');
     });
+
 }
