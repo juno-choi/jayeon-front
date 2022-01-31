@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html class="loading" lang="ko" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+    <meta name="keywords" content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
+    <meta name="author" content="PIXINVENT">
+    <title>자연 햇살 농원 관리자</title>
+    <link rel="apple-touch-icon" href="/app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/app-assets/images/ico/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i%7CQuicksand:300,400,500,700" rel="stylesheet">
+
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/tables/datatable/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/icheck/icheck.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/icheck/custom.css">
+    <!-- END: Vendor CSS-->
+
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/components.css">
+    <!-- END: Theme CSS-->
+
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/horizontal-menu.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="/app-assets/css/pages/invoice.css">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+    <!-- font -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <!-- END: Custom CSS-->
+    <style>
+        *{
+            font-size: 1.03em;
+        }
+    </style>
+</head>
+<!-- END: Head-->
+
+<!-- BEGIN: Body-->
+
+<body class="horizontal-layout horizontal-menu horizontal-menu-padding 2-columns  " data-open="click" data-menu="horizontal-menu" data-col="2-columns">
+
+<!-- BEGIN: Header-->
+<nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-static-top navbar-light navbar-brand-center">
+    <div class="navbar-wrapper">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item">
+                    <h3 class="brand-text">평창 자연햇살농원</h3>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- END: Header-->
+<!-- BEGIN: Content-->
+<div class="app-content container center-layout mt-2">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-body">
+            <section class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-head">
+                            <div class="card-header">
+                                <h4 class="card-title">주문내역</h4>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-body">
+                                <!-- Invoices List table -->
+                                <div class="table-responsive">
+                                    <table id="orderList" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
+                                        <thead>
+                                        <tr>
+                                            <th>주문번호</th>
+                                            <th>주문일</th>
+                                            <th>상품</th>
+                                            <th>상태</th>
+                                            <th>주문자</th>
+                                            <th>결제금액</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                    </table>
+                                </div>
+                                <!--/ Invoices table -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+
+<!-- order detail modal -->
+<div class="modal fade text-left" id="orderDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel16">상품 상세</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="orderForm">
+                    <h5>상품 상세정보</h5>
+                    <span>
+                        <div class="row">
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">품종</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">옵션</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">kg</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">개수</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">개당 가격</div>
+                        </div>
+                    </span>
+                    <span id="goodsList">
+
+                    </span>
+                    <hr>
+                    <h5>주문자 정보</h5>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 mb-1">
+                            <input type="text" name="buyer" class="form-control" placeholder="입금자명" disabled />
+                        </div>
+                    </div>
+                    <h5>받는 분 성함</h5>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <input type="text" name="recipient" class="form-control" placeholder="받는 분 성함" disabled />
+                        </div>
+                    </div>
+                    <h5 class="mt-1">받는 분 연락처</h5>
+                    <div class="row">
+                        <input type="text" name="tel1" class="form-control col-3 ml-1" placeholder="010" disabled/>
+                        <input type="text" name="tel2" class="form-control col-3 ml-1" placeholder="1234" disabled/>
+                        <input type="text" name="tel3" class="form-control col-3 ml-1" placeholder="5678" disabled/>
+                    </div>
+
+                    <h5 class="mt-1">받는 분 주소</h5>
+                    <div class="row">
+                        <input type="text" name="post1" class="form-control col-4 ml-1" placeholder="우편번호" disabled/>
+                        <input type="text" name="post2" class="form-control col-11 ml-1 mr-1 mt-1" placeholder="우편주소" disabled/>
+                        <input type="text" name="post3" class="form-control col-11 ml-1 mr-1 mt-1" placeholder="상세주소" disabled/>
+                    </div>
+                    <hr>
+                    <h5 class="mt-1">기타 요청사항</h5>
+                    <div class="row">
+                        <textarea name="request" class="form-control col-11 ml-1" placeholder="ex) 발송자 이름을 xxx으로 변경해서 발송해주세요!" disabled></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- order detail modal -->
+<div class="sidenav-overlay"></div>
+<div class="drag-target"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/javascripts/manager.js"></script>
+<!-- BEGIN: Vendor JS-->
+<script src="/app-assets/vendors/js/vendors.min.js"></script>
+<!-- BEGIN Vendor JS-->
+
+<!-- BEGIN: Page Vendor JS-->
+<script src="/app-assets/vendors/js/ui/jquery.sticky.js"></script>
+<script src="/app-assets/vendors/js/forms/icheck/icheck.min.js"></script>
+<!-- END: Page Vendor JS-->
+
+<!-- BEGIN: Theme JS-->
+<!-- END: Theme JS-->
+
+<!-- BEGIN: Page JS-->
+<!-- END: Page JS-->
+
+</body>
+<!-- END: Body-->
+
+</html>
