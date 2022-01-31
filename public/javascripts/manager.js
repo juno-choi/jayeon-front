@@ -21,7 +21,6 @@ function makeTable(){
     const tbody = document.getElementById('orderList').querySelector('tbody');
 
     orders.forEach((order)=>{
-        console.log(order);
         const tr = document.createElement('tr');
 
         const no = document.createElement('td');
@@ -29,9 +28,23 @@ function makeTable(){
         const date = document.createElement('td');
         date.innerText = order.regDate;
         const item = document.createElement('td');
-        item.innerText = '주문 상품 정보';
-        const itemDetail = document.createElement('td');
-        itemDetail.innerText = '한박스 두박스 등'
+        const itemList = order.itemList;
+        const itemName = itemList[0].item;
+        const kg = itemList[0].kg + 'kg';
+        const optionName = itemList[0].option;
+        const ea = itemList[0].ea;
+        let itemText = itemName + ' ' + kg + ' '+ optionName + '('+ ea +')';
+        const itemListLength = itemList.length;
+        if(itemListLength > 1){
+            const length = itemListLength - 1;
+            itemText += ' 외 '+length;
+        }
+        const itemA = document.createElement('a');
+        itemA.addEventListener('click', function(){alert('실행');});
+        itemA.href = "#";
+        itemA.innerText = itemText;
+        item.appendChild(itemA);
+
         const status = document.createElement('td');
         status.innerText = order.status;
         const buyer = document.createElement('td');
@@ -42,7 +55,6 @@ function makeTable(){
         tr.appendChild(no);
         tr.appendChild(date);
         tr.appendChild(item);
-        tr.appendChild(itemDetail);
         tr.appendChild(status);
         tr.appendChild(buyer);
         tr.appendChild(price);
