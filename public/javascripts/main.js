@@ -143,7 +143,7 @@ function getOptionList(){
         const option = document.createElement('option');
         option.value = item.idx;
         option.setAttribute("data-price", item.price);
-        option.text = item.name + '(' + item.price.toLocaleString()+' 원)';
+        option.text = item.kg + 'kg ' + item.name + '(' + item.price.toLocaleString()+' 원)';
         optionSelect.appendChild(option);
     });
 }
@@ -207,10 +207,6 @@ function order(){
     const post3 = f.post3.value;
     const request = f.request.value;
 
-    const data = {
-
-    };
-
     axios.post(reqeustUrl+'/v1/orders',{
         'order' : JSON.stringify(arr),
         'buyer' : buyer,
@@ -224,7 +220,7 @@ function order(){
         'request' : request
     })
     .then(function(res){
-        console.log(res);
+        alert('주문 완료! 입금자명과 동일한 이름으로 계좌입금을 해주시면 확인 후 상품 배송해드리겠습니다!');
     })
     .catch(function(){
         alert('실패');
