@@ -110,6 +110,71 @@
 </div>
 <!-- END: Content-->
 
+<!-- order detail modal -->
+<div class="modal fade text-left" id="orderDetailModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel16">상품 상세</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="orderForm">
+                    <h5>상품 상세정보</h5>
+                    <span>
+                        <div class="row">
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">품종</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">옵션</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">kg</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">개수</div>
+                            <div class="col-lg-2 ml-1 mr-1 mt-1">개당 가격</div>
+                        </div>
+                    </span>
+                    <span id="goodsList">
+
+                    </span>
+                    <hr>
+                    <h5>주문자 정보</h5>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 mb-1">
+                            <input type="text" name="buyer" class="form-control" placeholder="입금자명" disabled />
+                        </div>
+                    </div>
+                    <h5>받는 분 성함</h5>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <input type="text" name="recipient" class="form-control" placeholder="받는 분 성함" disabled />
+                        </div>
+                    </div>
+                    <h5 class="mt-1">받는 분 연락처</h5>
+                    <div class="row">
+                        <input type="text" name="tel1" class="form-control col-3 ml-1" placeholder="010" disabled/>
+                        <input type="text" name="tel2" class="form-control col-3 ml-1" placeholder="1234" disabled/>
+                        <input type="text" name="tel3" class="form-control col-3 ml-1" placeholder="5678" disabled/>
+                    </div>
+
+                    <h5 class="mt-1">받는 분 주소</h5>
+                    <div class="row">
+                        <input type="text" name="post1" class="form-control col-4 ml-1" placeholder="우편번호" disabled/>
+                        <input type="text" name="post2" class="form-control col-11 ml-1 mr-1 mt-1" placeholder="우편주소" disabled/>
+                        <input type="text" name="post3" class="form-control col-11 ml-1 mr-1 mt-1" placeholder="상세주소" disabled/>
+                    </div>
+                    <hr>
+                    <h5 class="mt-1">기타 요청사항</h5>
+                    <div class="row">
+                        <textarea name="request" class="form-control col-11 ml-1" placeholder="ex) 발송자 이름을 xxx으로 변경해서 발송해주세요!" disabled></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn grey btn-outline-secondary" data-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- order detail modal -->
 <div class="sidenav-overlay"></div>
 <div class="drag-target"></div>
 
