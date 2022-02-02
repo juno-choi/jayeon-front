@@ -208,21 +208,28 @@
                           <hr>
                           <h5>주문자 정보</h5>
                           <div class="row">
-                            <div class="col-lg-6 col-md-12 mb-1">
+                            <div class="col-lg-6 col-md-1">
                               <input type="text" name="buyer" class="form-control" placeholder="입금자명" value="테스터" />
                             </div>
                           </div>
-                          <h5>받는 분 성함</h5>
+                            <h5 class="mt-1">주문자 연락처</h5>
+                            <div class="row">
+                              <input type="text" name="buyerTel1" class="form-control col-3 ml-1" placeholder="010" value="010" />
+                              <input type="text" name="buyerTel2" class="form-control col-3 ml-1" placeholder="1234" value="1111" />
+                              <input type="text" name="buyerTel3" class="form-control col-3 ml-1" placeholder="5678" value="2222" />
+                            </div>
+                            <hr>
+                          <h5>수령자 성함</h5>
                           <div class="row">
                             <div class="col-lg-6 col-md-12">
                               <input type="text" name="recipient" class="form-control" placeholder="받는 분 성함" value="수령자" />
                             </div>
                           </div>
-                          <h5 class="mt-1">받는 분 연락처</h5>
+                          <h5 class="mt-1">수령자 연락처</h5>
                           <div class="row">
-                            <input type="text" name="tel1" class="form-control col-3 ml-1" placeholder="010" value="010" />
-                            <input type="text" name="tel2" class="form-control col-3 ml-1" placeholder="1234" value="1234" />
-                            <input type="text" name="tel3" class="form-control col-3 ml-1" placeholder="5678" value="4556" />
+                            <input type="text" name="recipientTel1" class="form-control col-3 ml-1" placeholder="010" value="010" />
+                            <input type="text" name="recipientTel2" class="form-control col-3 ml-1" placeholder="1234" value="3333" />
+                            <input type="text" name="recipientTel3" class="form-control col-3 ml-1" placeholder="5678" value="4444" />
                           </div>
                           
                           <h5 class="mt-1">받는 분 주소</h5>
@@ -235,7 +242,7 @@
                           <hr>
                           <h5 class="mt-1">기타 요청사항</h5>
                           <div class="row">
-                              <textarea name="request" class="form-control col-11 ml-1" placeholder="ex) 발송자 이름을 xxx으로 변경해서 발송해주세요!"></textarea>
+                              <textarea name="request" class="form-control col-11 ml-1" placeholder="ex) 발송자 이름을 xxx으로 변경해서 발송해주세요! 연락처도 010-xxxx-xxxx로 변경해서 발송해주세요!"></textarea>
                           </div>
 
                           <hr>

@@ -96,7 +96,6 @@ function openOrderDetailModal(){
         return obj.idx == orderIdx;
     });
     const item = items[0];
-    console.log(item);
     const itemList = item.itemList;
 
     const modal = document.getElementById('orderDetailModal');
@@ -136,10 +135,13 @@ function openOrderDetailModal(){
     });
 
     modal.querySelector('input[name=buyer]').value = item.buyer;
+    modal.querySelector('input[name=buyerTel1]').value = item.buyerTel1;
+    modal.querySelector('input[name=buyerTel2]').value = item.buyerTel2;
+    modal.querySelector('input[name=buyerTel3]').value = item.buyerTel3;
     modal.querySelector('input[name=recipient]').value = item.recipient;
-    modal.querySelector('input[name=tel1]').value = item.tel1;
-    modal.querySelector('input[name=tel2]').value = item.tel2;
-    modal.querySelector('input[name=tel3]').value = item.tel3;
+    modal.querySelector('input[name=recipientTel1]').value = item.recipientTel1;
+    modal.querySelector('input[name=recipientTel2]').value = item.recipientTel2;
+    modal.querySelector('input[name=recipientTel3]').value = item.recipientTel3;
     modal.querySelector('input[name=post1]').value = item.post1;
     modal.querySelector('input[name=post2]').value = item.post2;
     modal.querySelector('input[name=post3]').value = item.post3;
@@ -198,3 +200,174 @@ function changeStatusAjax(idx, status){
     });
 }
 
+
+function s2ab(s) {
+    const buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+    const view = new Uint8Array(buf);  //create uint8array as viewer
+    for (let i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+    return buf;
+}
+
+function deliveryExcel(){
+    // step 1. workbook 생성
+    const wb = XLSX.utils.book_new();
+
+    // step 2. 시트 만들기
+    const newWorksheet = deliveryExcelHandler.getWorksheet();
+
+    // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.
+    XLSX.utils.book_append_sheet(wb, newWorksheet, deliveryExcelHandler.getSheetName());
+
+    // step 4. 엑셀 파일 만들기
+    const wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+
+    // step 5. 엑셀 파일 내보내기
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), deliveryExcelHandler.getExcelFileName());
+}
+
+const deliveryExcelHandler = {
+    getExcelFileName : function(){
+        return '배송.xlsx';
+    },
+    getSheetName : function(){
+        return '배송';
+    },
+    getExcelData : function(){
+        const result = [];
+        const row = [];
+        row.push('날짜');
+        row.push('수령자');
+        row.push('수령인 연락처');
+        row.push('상품');
+        row.push('kg');
+        row.push('개수');
+        row.push('주소');
+        row.push('보내는 사람');
+        row.push('보내는 사람 연락처');
+        row.push('요청사항');
+        result.push(row);
+
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = (date.getMonth()+1);
+        const monthValue = (month<10) ? '0'+month : month;
+        const dateValue = (date.getDate()<10) ? '0'+date.getDate() : date.getDate();
+        const dateText = year+'-'+monthValue+'-'+ dateValue;
+        orders.forEach((order)=>{
+            const buyer = order.buyer;
+            const buyerTel1 = order.buyerTel1;
+            const buyerTel2 = order.buyerTel2;
+            const buyerTel3 = order.buyerTel3;
+            const recipient = order.recipient;
+            const recipientTel1 = order.recipientTel1;
+            const recipientTel2 = order.recipientTel2;
+            const recipientTel3 = order.recipientTel3;
+            const post1 = order.post1;
+            const post2 = order.post2;
+            const post3 = order.post3;
+            const request = order.request;
+            const itemList = order.itemList;
+            itemList.forEach((item)=>{
+                const data = [];
+                data.push(dateText);
+                data.push(recipient);
+                data.push(recipientTel1+'-'+recipientTel2+'-'+recipientTel3);
+                data.push('[' + item.item + '] ' + item.option);
+                data.push(item.kg);
+                data.push(item.ea);
+                data.push(post2+' '+post3);
+                data.push(buyer);
+                data.push(buyerTel1+'-'+buyerTel2+'-'+buyerTel3);
+                data.push(request);
+                result.push(data);
+            });
+        });
+
+        return result;
+    },
+    getWorksheet : function(){
+        return XLSX.utils.aoa_to_sheet(this.getExcelData());
+    }
+}
+
+function saleExcel(){
+    // step 1. workbook 생성
+    const wb = XLSX.utils.book_new();
+
+    // step 2. 시트 만들기
+    const newWorksheet = saleExcelHandler.getWorksheet();
+
+    // step 3. workbook에 새로만든 워크시트에 이름을 주고 붙인다.
+    XLSX.utils.book_append_sheet(wb, newWorksheet, saleExcelHandler.getSheetName());
+
+    // step 4. 엑셀 파일 만들기
+    const wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+
+    // step 5. 엑셀 파일 내보내기
+    saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), saleExcelHandler.getExcelFileName());
+}
+
+const saleExcelHandler = {
+    getExcelFileName : function(){
+        return '판매.xlsx';
+    },
+    getSheetName : function(){
+        return '판매';
+    },
+    getExcelData : function(){
+        const result = [];
+        const row = [];
+        row.push('주문번호');
+        row.push('날짜');
+        row.push('구매자');
+        row.push('구매자 연락처');
+        row.push('상품');
+        row.push('kg');
+        row.push('개수');
+        row.push('가격');
+        row.push('수령인');
+        row.push('수령인 연락처');
+        row.push('주소');
+        row.push('요청사항');
+        result.push(row);
+
+        orders.forEach((order)=>{
+            const idx = order.idx;
+            const dateText = order.regDate;
+            const buyer = order.buyer;
+            const buyerTel1 = order.buyerTel1;
+            const buyerTel2 = order.buyerTel2;
+            const buyerTel3 = order.buyerTel3;
+            const recipient = order.recipient;
+            const recipientTel1 = order.recipientTel1;
+            const recipientTel2 = order.recipientTel2;
+            const recipientTel3 = order.recipientTel3;
+            const post1 = order.post1;
+            const post2 = order.post2;
+            const post3 = order.post3;
+            const request = order.request;
+            const itemList = order.itemList;
+            itemList.forEach((item)=>{
+                const data = [];
+                data.push(idx); //주문번호
+                data.push(dateText);    //날짜
+                data.push(buyer);   //구매자
+                data.push(buyerTel1+'-'+buyerTel2+'-'+buyerTel3);   //구매자번호
+                data.push('[' + item.item + '] ' + item.option); //주문 상품
+                data.push(item.kg); //kg
+                data.push(item.ea); //개수
+                data.push(item.price * item.ea); //개수
+                data.push(recipient);   //수령자
+                data.push(recipientTel1+'-'+recipientTel2+'-'+recipientTel3);   //수령자 번호
+                data.push(post2+' '+post3);   //주소
+                data.push(request); //요청사항
+                result.push(data);
+            });
+        });
+
+        return result;
+    },
+    getWorksheet : function(){
+        return XLSX.utils.aoa_to_sheet(this.getExcelData());
+    }
+}
