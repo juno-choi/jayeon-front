@@ -63,7 +63,7 @@ function makeTable(){
         const btnTd = document.createElement('td');
         const manageBtn = document.createElement('button');
         manageBtn.type = 'button';
-        manageBtn.setAttribute('class','btn btn-sm btn-primary');
+        manageBtn.setAttribute('class','btn btn-primary');
         manageBtn.setAttribute('data-idx', orderIdx);
         manageBtn.setAttribute('data-status', orderStatusValue);
         manageBtn.addEventListener('click', changeStatus);
@@ -72,7 +72,7 @@ function makeTable(){
 
         const cancelBtn = document.createElement('button');
         cancelBtn.type = 'button';
-        cancelBtn.setAttribute('class','btn btn-sm btn-danger');
+        cancelBtn.setAttribute('class','btn btn-danger');
         cancelBtn.addEventListener('click', deleteOrder);
         cancelBtn.setAttribute('data-idx', orderIdx);
         cancelBtn.innerText = '삭제';
