@@ -1,5 +1,9 @@
 const reqeustUrl = 'http://localhost:8080';
-
+const orderStatus = {
+    'BEFORE' : '입금전',
+    'DEPOSIT' : '결제완료',
+    'COMPLETE' : '배송완료'
+}
 let orders;
 $(document).ready(async function (){
     await getOrders();
@@ -22,9 +26,11 @@ function makeTable(){
 
     orders.forEach((order)=>{
         const tr = document.createElement('tr');
+        const orderIdx = order.idx;
+        const orderStatusValue = order.status;
+        const orderStatusText = orderStatus[orderStatusValue];
 
         const no = document.createElement('td');
-        const orderIdx = order.idx;
         no.innerText = orderIdx;
         const date = document.createElement('td');
         date.innerText = order.regDate;
@@ -48,11 +54,29 @@ function makeTable(){
         item.appendChild(itemA);
 
         const status = document.createElement('td');
-        status.innerText = order.status;
+        status.innerText = orderStatusText;
         const buyer = document.createElement('td');
         buyer.innerText = order.buyer;
         const price = document.createElement('td');
         price.innerText = order.price.toLocaleString();
+
+        const btnTd = document.createElement('td');
+        const manageBtn = document.createElement('button');
+        manageBtn.type = 'button';
+        manageBtn.setAttribute('class','btn btn-sm btn-primary');
+        manageBtn.setAttribute('data-idx', orderIdx);
+        manageBtn.setAttribute('data-status', orderStatusValue);
+        manageBtn.addEventListener('click', changeStatus);
+        manageBtn.innerText = '상태변경';
+        btnTd.appendChild(manageBtn);
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.type = 'button';
+        cancelBtn.setAttribute('class','btn btn-sm btn-danger');
+        cancelBtn.addEventListener('click', deleteOrder);
+        cancelBtn.setAttribute('data-idx', orderIdx);
+        cancelBtn.innerText = '삭제';
+        btnTd.appendChild(cancelBtn);
 
         tr.appendChild(no);
         tr.appendChild(date);
@@ -60,10 +84,12 @@ function makeTable(){
         tr.appendChild(status);
         tr.appendChild(buyer);
         tr.appendChild(price);
+        tr.appendChild(btnTd);
         tbody.appendChild(tr);
     });
 }
 
+//주문 상세 modal
 function openOrderDetailModal(){
     const orderIdx = this.dataset.no;
     const items = orders.filter((obj)=>{
@@ -120,4 +146,38 @@ function openOrderDetailModal(){
     modal.querySelector('textarea[name=request]').innerText = item.request;
 
     $('#orderDetailModal').modal();
+}
+
+//삭제 버튼
+function deleteOrder(){
+    alert('삭제');
+}
+
+//상태변경 버튼
+function changeStatus(){
+    const idx = this.dataset.idx;
+    const status = this.dataset.status;
+
+    if(status == 'COMPLETE'){
+        alert('더이상 상태 값을 변경할 수 없습니다.');
+        return;
+    }
+
+    if(confirm("현재 주문의 상태를 변경하시겠습니까?")){
+        changeStatusAjax(idx, status);
+    }
+}
+
+function changeStatusAjax(idx, status){
+    axios.put(reqeustUrl+'/v1/orders/status',{
+        idx : idx,
+        orderStatus : status
+    }).then((res)=>{
+        const data = res.data.data;
+        const idx = data.order_idx;
+        alert('주문번호 = '+idx + '의 결제 상태가 정상적으로 변경되었습니다.');
+        location.reload();
+    }).catch((err)=>{
+        alert('실패');
+    });
 }

@@ -221,6 +221,7 @@ function order(){
     })
     .then(function(res){
         alert('주문 완료! 입금자명과 동일한 이름으로 계좌입금을 해주시면 확인 후 상품 배송해드리겠습니다!');
+        location.reload();
     })
     .catch(function(){
         alert('실패');
