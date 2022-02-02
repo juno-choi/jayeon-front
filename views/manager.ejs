@@ -76,9 +76,48 @@
             <section class="row">
                 <div class="col-12">
                     <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <form class="row" name="searchForm">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <h4 class="col-12">검색 날짜</h4>
+                                            <input type="text" name="sDate" class="form-control col-5 ml-1 mr-1" placeholder="2022-01-01">
+                                            <input type="text" name="eDate" class="form-control col-5" placeholder="2022-01-02">
+                                        </div>
+                                        <div class="row mt-1">
+                                            <h4 class="col-12">구매자 이름</h4>
+                                            <input type="text" name="buyer" class="form-control col-6 ml-1" placeholder="구매자 이름">
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <h4 class="col-12">상품 상태</h4>
+                                            <select name="orderStatus" class="form-control col-6 ml-1">
+                                                <option value="">선택안함</option>
+                                                <option value="BEFORE">입금전</option>
+                                                <option value="DEPOSIT">입금완료</option>
+                                                <option value="COMPLETE">배송완료</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="col-12 text-center">
+                                                <button type="submit" class="btn btn-primary col-lg-6 col-md-12">검색</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="row">
+                <div class="col-12">
+                    <div class="card">
                         <div class="card-head">
                             <div class="card-header">
-                                <h4 class="card-title">주문내역</h4>
+                                <h4 class="card-title">검색내역</h4>
                                 <div class="heading-elements">
                                     <button type="button" class="btn btn-secondary" onclick="deliveryExcel()">택배 출력</button>
                                     <button type="button" class="btn btn-info" onclick="saleExcel()">판매 출력</button>
@@ -90,15 +129,15 @@
                                 <div class="table-responsive">
                                     <table id="orderList" class="table table-white-space table-bordered row-grouping display no-wrap icheck table-middle">
                                         <thead>
-                                            <tr>
-                                                <th>주문번호</th>
-                                                <th>주문일</th>
-                                                <th>상품</th>
-                                                <th>상태</th>
-                                                <th>구매자</th>
-                                                <th>결제금액</th>
-                                                <th>관리</th>
-                                            </tr>
+                                        <tr>
+                                            <th>주문번호</th>
+                                            <th>주문일</th>
+                                            <th>상품</th>
+                                            <th>상태</th>
+                                            <th>구매자</th>
+                                            <th>결제금액</th>
+                                            <th>관리</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
                                         </tbody>

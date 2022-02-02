@@ -5,14 +5,63 @@ const orderStatus = {
     'COMPLETE' : '배송완료'
 }
 let orders;
-$(document).ready(async function (){
+$(document).ready(()=>{
+    search();
+});
+
+async function search(){
+    urlSearch();
     await getOrders();
     makeTable();
-});
+}
+
+function urlSearch(){
+    const f = document.searchForm;
+    const urlParam = location.href;
+    const url = new URL(urlParam);
+    const param = url.searchParams;
+    const sDate = param.get('sDate');
+    const eDate = param.get('eDate');
+    const buyer = param.get('buyer');
+    const orderStatus = param.get('orderStatus');
+
+    if(sDate != ''){
+        f.sDate.value = sDate;
+    }
+    if(eDate != ''){
+        f.eDate.value = eDate;
+    }
+    if(buyer != ''){
+        f.buyer.value = buyer;
+    }
+    if(orderStatus != null){
+        f.orderStatus.value = orderStatus;
+    }
+}
 
 //order 정보 비동기 불러오기
 async function getOrders(){
-    await axios.get(reqeustUrl+'/v1/orders',{}
+    const data = {};
+    const f = document.searchForm;
+    const sDate = f.sDate.value;
+    const eDate = f.eDate.value;
+    const buyer = f.buyer.value;
+    const orderStatus = f.orderStatus.value;
+
+    if(sDate != ''){
+        data.sDate = sDate;
+    }
+    if(eDate != ''){
+        data.eDate = eDate;
+    }
+    if(buyer != ''){
+        data.buyer = buyer;
+    }
+    if(orderStatus != ''){
+        data.orderStatus = orderStatus;
+    }
+
+    await axios.get(reqeustUrl+'/v1/orders/search',{params:data}
     ).then(function(res){
         orders = res.data.data;
     }).catch(function(err){
@@ -23,6 +72,7 @@ async function getOrders(){
 //table 정보 만들기
 function makeTable(){
     const tbody = document.getElementById('orderList').querySelector('tbody');
+    tbody.innerHTML = '';
 
     orders.forEach((order)=>{
         const tr = document.createElement('tr');
