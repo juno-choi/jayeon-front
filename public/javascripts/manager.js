@@ -150,7 +150,23 @@ function openOrderDetailModal(){
 
 //삭제 버튼
 function deleteOrder(){
-    alert('삭제');
+    const idx = this.dataset.idx;
+
+    if(confirm("현재 주문을 삭제하시겠습니까? 주문번호 = "+idx)){
+        deleteOrderAjax(idx);
+    }
+}
+//주문 삭제 ajax
+function deleteOrderAjax(idx){
+    axios.delete(reqeustUrl+'/v1/orders/'+idx,{
+    }).then((res)=>{
+        const data = res.data.data;
+        const idx = data.order_idx;
+        alert('주문번호 = '+idx + '의 결제가 정상적으로 삭제되었습니다.');
+        location.reload();
+    }).catch((err)=>{
+        alert('실패');
+    });
 }
 
 //상태변경 버튼
@@ -167,7 +183,7 @@ function changeStatus(){
         changeStatusAjax(idx, status);
     }
 }
-
+//주문 상태 변경 ajax
 function changeStatusAjax(idx, status){
     axios.put(reqeustUrl+'/v1/orders/status',{
         idx : idx,
@@ -181,3 +197,4 @@ function changeStatusAjax(idx, status){
         alert('실패');
     });
 }
+
