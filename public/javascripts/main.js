@@ -15,7 +15,7 @@ function getItems(){
     });
     
     ajax.done((res)=>{
-        //console.log(res);
+        console.log(res);
         items = res.data;
     });
     
@@ -185,6 +185,114 @@ function kakaoPostSearch(){
 
 //주문 button
 function order(){
+    if(!orderValidation()){
+        return ;
+    }
+    orderAjax();
+}
+
+function orderValidation(){
+    let result = true;
+    const f = document.orderForm;
+    const list = document.getElementById('goodsList').querySelectorAll('.row');
+    if(list.length == 0){
+        alert('상품 추가 버튼을 통해 상품을 추가해주세요!');
+        result = false;
+        return result;
+    }
+    list.forEach((item)=>{
+        const itemValue = item.querySelector('select[name=goods]').value;
+        if(itemValue == ''){
+            alert('상품을 선택해주세요!');
+            result = false;
+            return result;
+        }
+        const ea = item.querySelector('input[name=ea]').value;
+        if(ea == 0){
+            alert('상품 개수를 입력해주세요!');
+            result = false;
+            return result;
+        }
+        
+    });
+
+    const buyer = f.buyer.value;
+    const buyerTel1 = f.buyerTel1.value;
+    const buyerTel2 = f.buyerTel2.value;
+    const buyerTel3 = f.buyerTel3.value;
+    const recipient = f.recipient.value;
+    const recipientTel1 = f.recipientTel1.value;
+    const recipientTel2 = f.recipientTel2.value;
+    const recipientTel3 = f.recipientTel3.value;
+    const post1 = f.post1.value;
+    const post2 = f.post2.value;
+    const post3 = f.post3.value;
+    const request = f.request.value;
+
+    //주문자 정보
+    if(buyer == ''){
+        alert('입금자 명을 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(buyerTel1 == ''){
+        alert('주문자 연락처를 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(buyerTel2 == ''){
+        alert('주문자 연락처를 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(buyerTel3 == ''){
+        alert('주문자 연락처를 입력해주세요!');
+        result = false;
+        return result;
+    }
+
+    //수정자 정보
+    if(recipient == ''){
+        alert('수령자 명을 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(recipientTel1 == ''){
+        alert('수령자 연락처를 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(recipientTel2 == ''){
+        alert('수령자 연락처를 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(recipientTel3 == ''){
+        alert('수령자 연락처를 입력해주세요!');
+        result = false;
+        return result;
+    }
+
+    //주소
+    if(post1 == ''){
+        alert('주소찾기 후 주소를 정확히 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(post2 == ''){
+        alert('주소찾기 후 주소를 정확히 입력해주세요!');
+        result = false;
+        return result;
+    }
+    if(post3 == ''){
+        alert('상세 주소를 정확히 입력해주세요!');
+        result = false;
+        return result;
+    }
+    return result;
+}
+
+function orderAjax(){
     const f = document.orderForm;
     const rows = document.querySelector('#goodsList').querySelectorAll('.row');
     const arr = [];
@@ -198,10 +306,13 @@ function order(){
         arr.push(item);
     });
     const buyer = f.buyer.value;
+    const buyerTel1 = f.buyerTel1.value;
+    const buyerTel2 = f.buyerTel2.value;
+    const buyerTel3 = f.buyerTel3.value;
     const recipient = f.recipient.value;
-    const tel1 = f.tel1.value;
-    const tel2 = f.tel2.value;
-    const tel3 = f.tel3.value;
+    const recipientTel1 = f.recipientTel1.value;
+    const recipientTel2 = f.recipientTel2.value;
+    const recipientTel3 = f.recipientTel3.value;
     const post1 = f.post1.value;
     const post2 = f.post2.value;
     const post3 = f.post3.value;
@@ -210,10 +321,13 @@ function order(){
     axios.post(reqeustUrl+'/v1/orders',{
         'order' : JSON.stringify(arr),
         'buyer' : buyer,
+        'buyerTel1' : buyerTel1,
+        'buyerTel2' : buyerTel2,
+        'buyerTel3' : buyerTel3,
         'recipient' : recipient,
-        'tel1' : tel1,
-        'tel2' : tel2,
-        'tel3' : tel3,
+        'recipientTel1' : recipientTel1,
+        'recipientTel2' : recipientTel2,
+        'recipientTel3' : recipientTel3,
         'post1' : post1,
         'post2' : post2,
         'post3' : post3,
@@ -221,9 +335,9 @@ function order(){
     })
     .then(function(res){
         alert('주문 완료! 입금자명과 동일한 이름으로 계좌입금을 해주시면 확인 후 상품 배송해드리겠습니다!');
+        location.reload();
     })
     .catch(function(){
         alert('실패');
     });
-
 }
