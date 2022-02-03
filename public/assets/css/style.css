@@ -11,3 +11,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 * {
 	font-family: 'Noto Sans KR', sans-serif !important;
 }
+
+.card-hover:hover {
+	cursor: pointer;
+}
