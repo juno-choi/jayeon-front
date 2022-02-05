@@ -1,4 +1,4 @@
-const reqeustUrl = 'http://jayeonapple.com:8001';
+const reqeustUrl = 'http://jayeonapple.com';
 const orderStatus = {
     'BEFORE' : '입금전',
     'DEPOSIT' : '결제완료',

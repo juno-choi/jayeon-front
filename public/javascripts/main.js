@@ -1,4 +1,4 @@
-const reqeustUrl = 'http://jayeonapple.com:8001';
+const reqeustUrl = 'http://jayeonapple.com';
 
 $(document).ready(function (){
     getItems();
