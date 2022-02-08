@@ -210,7 +210,7 @@ function deleteOrder(){
 }
 //주문 삭제 ajax
 function deleteOrderAjax(idx){
-    axios.delete(reqeustUrl+'/v1/orders/'+idx,{
+    axios.delete(reqeustUrl+'/v1/orders/delete/'+idx,{
     }).then((res)=>{
         const data = res.data.data;
         const idx = data.order_idx;
@@ -237,7 +237,7 @@ function changeStatus(){
 }
 //주문 상태 변경 ajax
 function changeStatusAjax(idx, status){
-    axios.put(reqeustUrl+'/v1/orders/status',{
+    axios.patch(reqeustUrl+'/v1/orders/status',{
         idx : idx,
         orderStatus : status
     }).then((res)=>{
