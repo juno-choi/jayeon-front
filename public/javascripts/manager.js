@@ -242,8 +242,8 @@ function changeStatusAjax(idx, status){
         orderStatus : status
     }).then((res)=>{
         const data = res.data.data;
-        const idx = data.order_idx;
-        alert('주문번호 = '+idx + '의 결제 상태가 정상적으로 변경되었습니다.');
+        const idx = data.orderIdx;
+        alert('(주문번호 = '+idx + ')의 결제 상태가 정상적으로 변경되었습니다.');
         location.reload();
     }).catch((err)=>{
         alert('실패');
