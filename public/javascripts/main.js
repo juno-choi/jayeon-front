@@ -1,4 +1,5 @@
-const reqeustUrl = 'http://jayeonapple.com';
+const reqeustUrl = 'http://api.jayeonapple.com';
+//const reqeustUrl = 'http://localhost:8080';
 
 $(document).ready(function (){
     getItems();
