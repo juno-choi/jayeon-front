@@ -1,6 +1,3 @@
-require("dotenv").config();
-const requestUrl = process.env.API_URL;
-
 const orderStatus = {
     'BEFORE' : '입금전',
     'DEPOSIT' : '결제완료',

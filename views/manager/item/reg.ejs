@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html class="loading" lang="ko" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+<%- include('../template/header.ejs')%>
+<div class="app-content center-layout mt-2">
+    <div class="content-overlay"></div>
+    <div class="content-wrapper">
+        <div class="content-body">
+            <section class="users-edit">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div>
+                                    <!-- users edit media object start -->
+                                    <div class="media mb-2">
+                                        <a class="mr-2" href="#">
+                                            <img src="../../../app-assets/images/portrait/small/avatar-s-26.png" alt="users avatar" class="users-avatar-shadow rounded-circle" height="64" width="64">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">상품 이미지</h4>
+                                            <div class="col-12 px-0 d-flex">
+                                                <a href="#" class="btn btn-sm btn-primary mr-25">등록</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <form>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <div class="controls">
+                                                        <label>상품 이름</label>
+                                                        <input type="text" class="form-control" placeholder="상품 이름">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="controls">
+                                                        <label>가격</label>
+                                                        <input type="number" class="form-control"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="controls">
+                                                        <label>내용</label>
+                                                        <div id="editor"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-center mt-1">
+                                                <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">등록</button>
+                                                <button type="reset" class="btn btn-light">뒤로가기</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- END: Content-->
+
+</body>
+<!-- END: Body-->
+<%- include('../template/footer.ejs')%>
+<!-- CK Editor -->
+<script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
+<script src="/javascripts/ck-editor/UploadAdapter.js"></script>
+<script>
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new UploadAdapter(loader)
+        }
+    }
+
+    ClassicEditor.create(document.querySelector( '#editor' ),{
+        extraPlugins: [MyCustomUploadAdapterPlugin]
+    })
+    .catch( error => {
+        console.error( error );
+    });
+</script>
+<!-- CK Editor -->
+<script src="/javascripts/item/reg.js"></script>
+</html>

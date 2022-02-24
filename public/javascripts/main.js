@@ -1,6 +1,3 @@
-require("dotenv").config();
-const requestUrl = process.env.API_URL;
-
 $(document).ready(function (){
     getItems();
     saleModalEvent();
