@@ -10,4 +10,8 @@ router.get('/manager', function(req, res, next) {
   res.render('manager');
 });
 
+router.get('/manager/goods', function(req, res, next) {
+  res.render('goods');
+});
+
 module.exports = router;

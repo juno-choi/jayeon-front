@@ -1,5 +1,5 @@
-const reqeustUrl = 'http://api.jayeonapple.com';
-//const reqeustUrl = 'http://localhost:8080';
+require("dotenv").config();
+const requestUrl = process.env.API_URL;
 
 $(document).ready(function (){
     getItems();
@@ -12,7 +12,7 @@ let items;
 function getItems(){
     const ajax = $.ajax({
         method : 'GET',
-        url : reqeustUrl+'/v1/items',
+        url : requestUrl+'/v1/items',
     });
     
     ajax.done((res)=>{
@@ -319,7 +319,7 @@ function orderAjax(){
     const post3 = f.post3.value;
     const request = f.request.value;
 
-    axios.post(reqeustUrl+'/v1/orders',{
+    axios.post(requestUrl+'/v1/orders',{
         'order' : JSON.stringify(arr),
         'buyer' : buyer,
         'buyerTel1' : buyerTel1,

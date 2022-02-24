@@ -1,5 +1,6 @@
-const reqeustUrl = 'http://api.jayeonapple.com';
-//const reqeustUrl = 'http://localhost:8080';
+require("dotenv").config();
+const requestUrl = process.env.API_URL;
+
 const orderStatus = {
     'BEFORE' : '입금전',
     'DEPOSIT' : '결제완료',
@@ -62,7 +63,7 @@ async function getOrders(){
         data.orderStatus = orderStatus;
     }
 
-    await axios.get(reqeustUrl+'/v1/orders/search',{params:data}
+    await axios.get(requestUrl+'/v1/orders/search',{params:data}
     ).then(function(res){
         orders = res.data.data;
     }).catch(function(err){
@@ -211,7 +212,7 @@ function deleteOrder(){
 }
 //주문 삭제 ajax
 function deleteOrderAjax(idx){
-    axios.delete(reqeustUrl+'/v1/orders/delete/'+idx,{
+    axios.delete(requestUrl+'/v1/orders/delete/'+idx,{
     }).then((res)=>{
         const data = res.data.data;
         const idx = data.order_idx;
@@ -238,7 +239,7 @@ function changeStatus(){
 }
 //주문 상태 변경 ajax
 function changeStatusAjax(idx, status){
-    axios.patch(reqeustUrl+'/v1/orders/status',{
+    axios.patch(requestUrl+'/v1/orders/status',{
         idx : idx,
         orderStatus : status
     }).then((res)=>{
