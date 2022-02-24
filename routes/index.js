@@ -7,11 +7,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/manager', function(req, res, next) {
-  res.render('manager');
+  res.render('manager/manager');
 });
 
-router.get('/manager/goods', function(req, res, next) {
-  res.render('goods');
+router.get('/manager/item', function(req, res, next) {
+  res.render('manager/item/item');
+});
+
+router.get('/manager/item/reg', function(req, res, next) {
+  res.render('manager/item/item_reg');
 });
 
 module.exports = router;
