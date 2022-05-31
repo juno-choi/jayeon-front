@@ -1,5 +1,3 @@
-url : [http://jayeonapple.com](http://jayeonapple.com/)
-
 language : javascript, node.js, html, css
 
 framework : express
